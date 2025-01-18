@@ -1,32 +1,24 @@
 {
-  "name": "magmastream_template_bot",
-  "version": "2.0.0",
-  "description": "An example of how Magmastream can be implemented.",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc --build",
-    "start": "node dist/index.js",
-    "rebuild": "npm run build && npm run start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Blackfort-Hosting/Magmastream_Template_Bot.git"
-  },
-  "author": "Abel Purnwasy",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/Blackfort-Hosting/Magmastream_Template_Bot/issues"
-  },
-  "homepage": "https://github.com/Blackfort-Hosting/Magmastream_Template_Bot#readme",
-  "dependencies": {
-    "discord.js": "^14.15.2",
-    "magmastream": "^2.5.5",
-    "signale": "^1.4.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.13.0",
-    "@types/signale": "^1.4.7",
-    "typescript": "^5.4.5"
-  }
+	"name": "magmastream_basics_bot",
+	"version": "1.0.0",
+	"description": "A basic example of how Magmastream can be implemented.",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node .",
+		"release": "standard-version"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Magmastream-NPM/Magmastream_Basics_Bot.git"
+	},
+	"author": "SxMAbel, Vexify4103",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/Magmastream-NPM/Magmastream_Basics_Bot/issues"
+	},
+	"homepage": "https://github.com/Magmastream-NPM/Magmastream_Basics_Bot#readme",
+	"dependencies": {
+		"discord.js": "^14.17.2",
+		"magmastream": "^2.7.2"
+	}
 }
