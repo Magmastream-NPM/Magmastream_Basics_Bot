@@ -18,6 +18,7 @@
 	},
 	"homepage": "https://github.com/Magmastream-NPM/Magmastream_Basics_Bot#readme",
 	"dependencies": {
-		"discord.js": "^14.17.2"
+		"discord.js": "^14.17.2",
+		"magmastream": "^2.7.3"
 	}
 }
