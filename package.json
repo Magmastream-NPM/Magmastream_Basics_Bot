@@ -1,6 +1,6 @@
 {
 	"name": "magmastream_basics_bot",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A basic example of how Magmastream can be implemented.",
 	"main": "src/index.js",
 	"scripts": {
@@ -18,7 +18,6 @@
 	},
 	"homepage": "https://github.com/Magmastream-NPM/Magmastream_Basics_Bot#readme",
 	"dependencies": {
-		"discord.js": "^14.17.2",
-		"magmastream": "^2.7.2"
+		"discord.js": "^14.17.2"
 	}
 }

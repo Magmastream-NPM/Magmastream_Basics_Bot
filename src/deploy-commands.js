@@ -8,7 +8,7 @@ module.exports = async (client) => {
 	try {
 		console.log(`[INFO] Started refreshing application commands.`);
 
-		// The put method is used to fully refresh all commands in the guild with the current set
+		// Read all of the command files
 		const data = [];
 		client.commands.forEach((command) => {
 			try {
@@ -34,6 +34,6 @@ module.exports = async (client) => {
 		console.log(`[INFO] Successfully reloaded ${data.length} application commands.`);
 	} catch (error) {
 		// And of course, make sure you catch and log any errors!
-		console.error(error);
+		console.error(`[ERROR] Failed to reload application commands: ${error}`);
 	}
 };

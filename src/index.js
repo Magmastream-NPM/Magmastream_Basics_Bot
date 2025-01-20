@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const config = require("./config.js");
-const { Manager } = require("magmastream");
+const { Manager, UseNodeOptions, SearchPlatform } = require("magmastream");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
 // Create a new client instance
@@ -11,11 +11,14 @@ const client = new Client({
 
 // Assign Manager to the client
 client.manager = new Manager({
-	autoPlay: true,
-	usePriority: false,
-	replaceYouTubeCredentials: true,
-	lastFmApiKey: config.lastFmApiKey,
-	trackPartial: ["pluginInfo", "title", "author", "duration", "uri", "requester", "artworkUrl", "sourceName", "identifier", "artistUrl"],
+	autoPlay: true, // Optional! - Recommanded to be true
+	usePriority: false, // Optional! - Recommanded if you have more than 1 node
+	replaceYouTubeCredentials: true, // Optional! - Recommanded to be true
+	lastFmApiKey: config.lastFmApiKey, // Optional!
+	trackPartial: ["pluginInfo", "title", "author", "duration", "uri", "requester", "artworkUrl", "sourceName", "identifier", "artistUrl"], // Optional!
+	useNode: UseNodeOptions.LeastLoad, // Optional!
+	defaultSearchPlatform: SearchPlatform.YouTube, // Optional! - Assuming YouTube is enabled on Lavalink
+	autoPlaySearchPlatform: SearchPlatform.Spotify, // Optional! - Assuming Spotify is enabled on Lavalink
 	nodes: config.nodes,
 	send: async (id, payload) => {
 		const guild = client.guilds.cache.get(id);

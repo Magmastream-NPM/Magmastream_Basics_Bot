@@ -3,14 +3,14 @@ module.exports = {
 	lastFmApiKey: "", // optional
 	nodes: [
 		{
-			host: "",
-			port: 9999,
-			password: "",
-			secure: false,
-			retryAmount: 500,
-			retryDelay: 300000,
-			resumeStatus: true,
-			resumeTimeout: 300,
+			host: "", // required
+			port: 9999, // required
+			password: "", // required
+			secure: false, // optional
+			retryAmount: 500, // optional
+			retryDelay: 300000, // optional
+			resumeStatus: true, // optional
+			resumeTimeout: 300, // optional
 		},
 	],
 };

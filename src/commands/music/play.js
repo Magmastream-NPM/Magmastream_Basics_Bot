@@ -1,4 +1,4 @@
-const { LoadTypes } = require("magmastream");
+const { LoadTypes, StateTypes } = require("magmastream");
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
 		if (!interaction.member.voice.channel) {
 			return await interaction
 				.reply("You need to be in a voice channel to use this command.")
-				.catch((error) => console.log(`[ERROR] Failed to send message to channel: ${interaction.channel.id}`));
+				.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
 		}
 
 		// Get the current player
@@ -22,11 +22,11 @@ module.exports = {
 		if (player && interaction.member.voice.channel.id !== player.voiceChannel) {
 			return await interaction
 				.reply("You need to be in the same voice channel as the bot to use this command.")
-				.catch((error) => console.log(`[ERROR] Failed to send message to channel: ${interaction.channel.id}`));
+				.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
 		}
 
 		// Defer the reply
-		await interaction.deferReply().catch((error) => console.log(`[ERROR] Failed to defer message to channel: ${interaction.channel.id}`));
+		await interaction.deferReply().catch((error) => console.log(`[ERROR] Failed to defer message ${error.message} to channel: ${interaction.channel.id}`));
 
 		// Get the search query
 		const query = interaction.options.getString("query");
@@ -38,7 +38,7 @@ module.exports = {
 		if (res.loadType === LoadTypes.Empty || res.loadType === LoadTypes.Error) {
 			return await interaction
 				.editReply("No results found.")
-				.catch((error) => console.log(`[ERROR] Failed to send message to channel: ${interaction.channel.id}`));
+				.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
 		}
 
 		// Create the player if it doesn't exist
@@ -50,11 +50,12 @@ module.exports = {
 				selfDeafen: true,
 				volume: 100,
 			});
-			if (player.state !== "CONNECTED") player.connect();
+			// Connect to the voice channel if the player is not already connected
+			if (player.state !== StateTypes.Disconnected) player.connect();
 		} catch (error) {
 			return await interaction
 				.editReply(`An error occurred while creating the player: ${error.message}`)
-				.catch((error) => console.log(`[ERROR] Failed to send message to channel: ${interaction.channel.id}`));
+				.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
 		}
 
 		// Handle the search result
@@ -71,7 +72,7 @@ module.exports = {
 				// Reply with a success message
 				await interaction
 					.editReply(`Successfully added \`${track.author} - ${track.title}\` to the queue.`)
-					.catch((error) => console.log(`[ERROR] Failed to send message to channel: ${interaction.channel.id}`));
+					.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
 				break;
 			case LoadTypes.Playlist:
 				// Add the playlist tracks to the queue
@@ -85,7 +86,7 @@ module.exports = {
 				// Reply with a success message
 				await interaction
 					.editReply(`Successfully added \`${res.playlist.name}\` playlist with \`${res.tracks.length + 1} songs\` to the queue.`)
-					.catch((error) => console.log(`[ERROR] Failed to send message to channel: ${interaction.channel.id}`));
+					.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
 				break;
 		}
 	},
