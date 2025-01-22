@@ -1,8 +1,8 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const config = require("./config.js");
-const { Manager, UseNodeOptions, SearchPlatform } = require("magmastream");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { Manager, UseNodeOptions, SearchPlatform } = require("magmastream");
+const config = require("./config.js");
 
 // Create a new client instance
 const client = new Client({
