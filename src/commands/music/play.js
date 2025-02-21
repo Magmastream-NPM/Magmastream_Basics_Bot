@@ -44,14 +44,14 @@ module.exports = {
 		// Create the player if it doesn't exist
 		try {
 			player = client.manager.create({
-				guild: interaction.guild.id,
-				voiceChannel: interaction.member.voice.channel.id,
-				textChannel: interaction.channel.id,
+				guildId: interaction.guild.id,
+				voiceChannelId: interaction.member.voice.channel.id,
+				textChannelId: interaction.channel.id,
 				selfDeafen: true,
 				volume: 100,
 			});
 			// Connect to the voice channel if the player is not already connected
-			if (player.state !== StateTypes.Disconnected) player.connect();
+			if (player.state !== StateTypes.Connected) player.connect();
 		} catch (error) {
 			return await interaction
 				.editReply(`An error occurred while creating the player: ${error.message}`)

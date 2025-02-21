@@ -22,7 +22,7 @@ client.manager = new Manager({
 	nodes: config.nodes,
 	send: async (id, payload) => {
 		const guild = client.guilds.cache.get(id);
-		if (guild) await guild.shard.send(payload);
+		if (guild) guild.shard.send(payload);
 	},
 });
 
