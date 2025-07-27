@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
-const { Manager, UseNodeOptions, SearchPlatform } = require("magmastream");
+const { Manager, SearchPlatform, AutoPlayPlatform, TrackPartial } = require("magmastream");
 const config = require("./config.js");
 
 // Create a new client instance
@@ -11,18 +11,27 @@ const client = new Client({
 
 // Assign Manager to the client
 client.manager = new Manager({
-	autoPlay: true, // Optional! - Recommanded to be true
-	usePriority: false, // Optional! - Recommanded if you have more than 1 node
-	replaceYouTubeCredentials: true, // Optional! - Recommanded to be true
-	lastFmApiKey: config.lastFmApiKey, // Optional!
-	trackPartial: ["pluginInfo", "title", "author", "duration", "uri", "requester", "artworkUrl", "sourceName", "identifier", "artistUrl"], // Optional!
-	useNode: UseNodeOptions.LeastLoad, // Optional!
-	defaultSearchPlatform: SearchPlatform.YouTube, // Optional! - Assuming YouTube is enabled on Lavalink
-	autoPlaySearchPlatform: SearchPlatform.Spotify, // Optional! - Assuming Spotify is enabled on Lavalink
+	playNextOnEnd: true, // Optional - Recommanded to be true
+	enablePriorityMode: false, // Optional - Recommanded if you have more than 1 node
+	normalizeYouTubeTitles: true, // Optional - Recommanded to be true
+	trackPartial: [
+		TrackPartial.Author,
+		TrackPartial.ArtworkUrl,
+		TrackPartial.Duration,
+		TrackPartial.Identifier,
+		TrackPartial.PluginInfo,
+		TrackPartial.Requester,
+		TrackPartial.SourceName,
+		TrackPartial.Title,
+		TrackPartial.Track,
+		TrackPartial.Uri,
+	], // Optional but recommanded!
+	defaultSearchPlatform: SearchPlatform.YouTube, // Optional - Assuming YouTube is enabled on Lavalink
+	autoPlaySearchPlatforms: [AutoPlayPlatform.Spotify, AutoPlayPlatform.Deezer, AutoPlayPlatform.YouTube], // Optional
 	nodes: config.nodes,
-	send: async (id, payload) => {
-		const guild = client.guilds.cache.get(id);
-		if (guild) guild.shard.send(payload);
+	send: (packet) => {
+		const guild = client.guilds.cache.get(packet.d.guild_id);
+		if (guild) guild.shard.send(packet);
 	},
 });
 

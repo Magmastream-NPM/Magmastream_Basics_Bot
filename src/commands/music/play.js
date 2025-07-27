@@ -16,10 +16,10 @@ module.exports = {
 		}
 
 		// Get the current player
-		let player = client.manager.get(interaction.guild.id);
+		let player = client.manager.getPlayer(interaction.guild.id);
 
 		// Check if the user is in the same voice channel as the bot
-		if (player && interaction.member.voice.channel.id !== player.voiceChannel) {
+		if (player && interaction.member.voice.channel.id !== player.voiceChannelId) {
 			return await interaction
 				.reply("You need to be in the same voice channel as the bot to use this command.")
 				.catch((error) => console.log(`[ERROR] Failed to send message ${error.message} to channel: ${interaction.channel.id}`));
@@ -51,7 +51,7 @@ module.exports = {
 				volume: 100,
 			});
 			// Connect to the voice channel if the player is not already connected
-			if (player.state !== StateTypes.Connected) player.connect();
+			if (player.state !== StateTypes.Connected) await player.connect();
 		} catch (error) {
 			return await interaction
 				.editReply(`An error occurred while creating the player: ${error.message}`)
@@ -64,10 +64,10 @@ module.exports = {
 			case LoadTypes.Search:
 				// Add the track to the queue
 				const track = res.tracks[0];
-				player.queue.add(track);
+				await player.queue.add(track);
 
 				// Play the track if the queue is empty
-				if (!player.playing && !player.paused && !player.queue.size) await player.play();
+				if (!player.playing && !player.paused && (await player.queue.totalSize()) === 1) await player.play();
 
 				// Reply with a success message
 				await interaction
@@ -78,10 +78,10 @@ module.exports = {
 				// Add the playlist tracks to the queue
 				res.tracks = res.playlist.tracks;
 
-				player.queue.add(res.tracks);
+				await player.queue.add(res.tracks);
 
 				// Play the first track if the queue is empty
-				if (!player.playing && !player.paused && player.queue.size === res.tracks.length) await player.play();
+				if (!player.playing && !player.paused && (await player.queue.totalSize()) === res.tracks.length) await player.play();
 
 				// Reply with a success message
 				await interaction

@@ -8,6 +8,6 @@ module.exports = {
 
 		channel
 			.send(`Now playing: \`${track.title}\`, requested by \`${track.requester.username}\`.`)
-			.catch((error) => console.log(`[TRACKSTART] Failed to send message to channel: ${player.textChannelId}`));
+			.catch(() => console.log(`[TRACKSTART] Failed to send message to channel: ${player.textChannelId}`));
 	},
 };

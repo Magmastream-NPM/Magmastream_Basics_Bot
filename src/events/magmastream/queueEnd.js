@@ -6,6 +6,6 @@ module.exports = {
 		const channel = client.channels.cache.get(player.textChannelId);
 		if (!channel) return;
 
-		channel.send(`Queue has ended!`).catch((error) => console.log(`[QUEUEEND] Failed to send message to channel: ${player.textChannelId}`));
+		channel.send(`Queue has ended!`).catch(() => console.log(`[QUEUEEND] Failed to send message to channel: ${player.textChannelId}`));
 	},
 };

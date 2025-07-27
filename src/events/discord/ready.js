@@ -9,7 +9,7 @@ module.exports = {
 		require("../../deploy-commands")(client);
 
 		// Initialize Lavalink
-		client.manager.init(client.user.id);
+		client.manager.init({ clientId: client.user.id });
 
 		// Print a message to the console indicating that the client is ready
 		console.log(`[INFO] Ready! Logged in as ${client.user.tag}`);
