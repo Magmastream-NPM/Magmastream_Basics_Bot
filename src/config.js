@@ -9,7 +9,7 @@ module.exports = {
 			maxRetryAttempts: 500, // optional
 			retryDelayMs: 300000, // optional
 			enableSessionResumeOption: true, // optional
-			sessionTimeout: 300, // optional
+			sessionTimeoutSeconds: 300, // optional
 		},
 	],
 };
