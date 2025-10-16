@@ -51,7 +51,7 @@ module.exports = {
 				volume: 100,
 			});
 			// Connect to the voice channel if the player is not already connected
-			if (player.state !== StateTypes.Connected) await player.connect();
+			if (player.state !== StateTypes.Connected) player.connect();
 		} catch (error) {
 			return await interaction
 				.editReply(`An error occurred while creating the player: ${error.message}`)
